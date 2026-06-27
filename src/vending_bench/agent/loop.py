@@ -1,7 +1,8 @@
 """自前エージェントループ（MCP不要）。
 
-各ターン: トリミング済み履歴＋システムプロンプトを `claude -p` に渡して次アクション(JSON)を取得 →
-パースして tools/api を実行 → 結果を履歴へ。出力トークンは sim 内の残高から週次課金される。
+各ターン: トリミング済み履歴＋システムプロンプトを LLM バックエンド (`claude -p` / `cursor -p`) に
+渡して次アクション(JSON)を取得 → パースして tools/api を実行 → 結果を履歴へ。
+出力トークンは sim 内の残高から週次課金される（Cursor バックエンドはトークン数取得不可のため課金なし）。
 """
 
 from __future__ import annotations
@@ -14,7 +15,7 @@ from ..config import EnvConfig
 from ..env.world import WorldState
 from ..scoring import RunMetrics, score_breakdown
 from ..tools.api import ToolError, execute
-from .llm import ClaudeCLI, LLMError
+from .llm import LLM, LLMError, create_llm
 from .memory import ConversationMemory, parse_tool_call
 from .prompts import CONTINUE_REMINDER, NEXT_ACTION_INSTRUCTION, system_prompt
 
@@ -30,7 +31,7 @@ def _initial_observation(world: WorldState) -> str:
     )
 
 
-def run_agent(world: WorldState, llm: ClaudeCLI, *, days: int, max_steps: int,
+def run_agent(world: WorldState, llm: LLM, *, days: int, max_steps: int,
               memory: ConversationMemory, state_path: Path | None = None,
               verbose: bool = True, metrics: RunMetrics | None = None) -> dict:
     sys_prompt = system_prompt(world.config)
@@ -115,10 +116,13 @@ def main() -> None:
     parser.add_argument("--days", type=int, default=5, help="運転する sim 日数（既定5）")
     parser.add_argument("--max-steps", type=int, default=None, help="安全上限のステップ数（既定 days*60）")
     parser.add_argument("--seed", type=int, default=0)
-    parser.add_argument("--model", type=str, default="sonnet", help="claude のモデル（sonnet/opus 等）")
+    parser.add_argument("--agent", type=str, default="claude", choices=["claude", "cursor"],
+                        help="LLM バックエンド: claude (既定) または cursor")
+    parser.add_argument("--model", type=str, default="sonnet",
+                        help="モデル名（claude: sonnet/opus 等, cursor: claude-4-sonnet 等）")
     parser.add_argument("--state", type=Path, default=Path("results/run.json"), help="状態の保存先（途中保存・最終保存）")
     parser.add_argument("--context-tokens", type=int, default=8000, help="履歴コンテキストの概算トークン上限")
-    parser.add_argument("--timeout", type=int, default=180, help="claude 1呼び出しのタイムアウト秒")
+    parser.add_argument("--timeout", type=int, default=180, help="LLM 1呼び出しのタイムアウト秒")
     parser.add_argument("--quiet", action="store_true")
     args = parser.parse_args()
 
@@ -130,10 +134,10 @@ def main() -> None:
         world = WorldState.new(EnvConfig(seed=args.seed))
 
     max_steps = args.max_steps if args.max_steps is not None else args.days * 60
-    llm = ClaudeCLI(model=args.model, timeout_s=args.timeout)
+    llm = create_llm(agent=args.agent, model=args.model, timeout_s=args.timeout)
     memory = ConversationMemory(context_tokens=args.context_tokens)
 
-    print(f"=== エージェント運転開始: {args.days}日 / 最大{max_steps}ステップ / model={args.model} ===")
+    print(f"=== エージェント運転開始: {args.days}日 / 最大{max_steps}ステップ / agent={args.agent} / model={args.model} ===")
     summary = run_agent(world, llm, days=args.days, max_steps=max_steps,
                         memory=memory, state_path=args.state, verbose=not args.quiet)
     print("\n=== 結果 ===")
