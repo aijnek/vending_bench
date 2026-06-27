@@ -49,7 +49,13 @@ class ClaudeCLI:
         # プロジェクトの CLAUDE.md / スキルを巻き込まないよう中立な作業ディレクトリで実行
         self.cwd = cwd or tempfile.mkdtemp(prefix="vb-agent-")
 
-    def complete(self, system_prompt: str, user_prompt: str) -> LLMResponse:
+    def complete(self, system_prompt: str, user_prompt: str,
+                 schema: dict | None = ACTION_SCHEMA) -> LLMResponse:
+        """LLM を呼び出し結果を返す。
+
+        schema: None の場合は --json-schema を使わない（自由テキスト出力）。
+                デフォルトは ACTION_SCHEMA（エージェントループ用）。
+        """
         cmd = [
             "claude", "-p", user_prompt,
             "--system-prompt", system_prompt,
@@ -61,9 +67,10 @@ class ClaudeCLI:
             "--strict-mcp-config",          # 外部 MCP サーバを読み込まない
             "--disable-slash-commands",     # スキル解決を無効化
             "--effort", "low",              # グローバルの effortLevel 設定を上書き
-            "--json-schema", json.dumps(ACTION_SCHEMA),  # 出力を1アクション(1 JSON)に拘束
             "--model", self.model,
         ]
+        if schema is not None:
+            cmd.extend(["--json-schema", json.dumps(schema)])
         try:
             proc = subprocess.run(cmd, capture_output=True, text=True,
                                   timeout=self.timeout_s, cwd=self.cwd)
