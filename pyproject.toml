@@ -9,6 +9,8 @@ dependencies = []
 [project.scripts]
 vb-play = "vending_bench.cli.repl:main"
 vb-run = "vending_bench.agent.loop:main"
+vb-session = "vending_bench.agent.session:main"
+vb-mcp = "vending_bench.mcp.server:main"
 
 [dependency-groups]
 dev = [
