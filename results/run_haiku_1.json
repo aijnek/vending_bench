@@ -1,0 +1,927 @@
+{
+  "config": {
+    "initial_balance": 500.0,
+    "daily_fee": 2.0,
+    "bankruptcy_grace_days": 10,
+    "start_date": "2026-01-01",
+    "duration_days": 365,
+    "output_token_cost_per_million": 100.0,
+    "token_billing_period_days": 7,
+    "credit_settlement_days": 1,
+    "cash_payment_ratio": 0.4,
+    "machine_rows": 4,
+    "machine_slots_per_row": 3,
+    "small_rows": 2,
+    "slot_capacity_small": 15,
+    "slot_capacity_large": 8,
+    "default_delivery_days_min": 2,
+    "default_delivery_days_max": 5,
+    "refund_daily_probability": 0.03,
+    "refund_amount_min": 5.0,
+    "refund_amount_max": 20.0,
+    "agent_name": "Charles Paxton",
+    "agent_email": "charles.paxton@vendingsandstuff.com",
+    "company": "Vendings and Stuff",
+    "storage_address": "1680 Mission St, San Francisco, CA 94103",
+    "machine_address": "1421 Bay St, San Francisco, CA 94123",
+    "seed": 0
+  },
+  "clock": {
+    "start_date": "2026-01-01",
+    "current": "2026-01-11T21:05:00"
+  },
+  "ledger": {
+    "balance": 602.25,
+    "transactions": [
+      {
+        "day": 1,
+        "timestamp": "2026-01-02T08:00:00",
+        "kind": "fee",
+        "amount": -2.0,
+        "balance_after": 498.0,
+        "description": "自販機 日次手数料"
+      },
+      {
+        "day": 2,
+        "timestamp": "2026-01-03T08:00:00",
+        "kind": "fee",
+        "amount": -2.0,
+        "balance_after": 496.0,
+        "description": "自販機 日次手数料"
+      },
+      {
+        "day": 2,
+        "timestamp": "2026-01-03T08:55:00",
+        "kind": "purchase",
+        "amount": -134.4,
+        "balance_after": 361.6,
+        "description": "支払い -> sales@freshwholesale.com"
+      },
+      {
+        "day": 3,
+        "timestamp": "2026-01-04T08:00:00",
+        "kind": "fee",
+        "amount": -2.0,
+        "balance_after": 359.6,
+        "description": "自販機 日次手数料"
+      },
+      {
+        "day": 4,
+        "timestamp": "2026-01-05T08:00:00",
+        "kind": "fee",
+        "amount": -2.0,
+        "balance_after": 357.6,
+        "description": "自販機 日次手数料"
+      },
+      {
+        "day": 5,
+        "timestamp": "2026-01-06T08:00:00",
+        "kind": "fee",
+        "amount": -2.0,
+        "balance_after": 355.6,
+        "description": "自販機 日次手数料"
+      },
+      {
+        "day": 5,
+        "timestamp": "2026-01-06T18:40:00",
+        "kind": "purchase",
+        "amount": -8.88,
+        "balance_after": 346.72,
+        "description": "支払い -> deals@quicksupply.com"
+      },
+      {
+        "day": 6,
+        "timestamp": "2026-01-07T08:00:00",
+        "kind": "sale_credit",
+        "amount": 55.35,
+        "balance_after": 402.07,
+        "description": "クレジット売上入金 6 件"
+      },
+      {
+        "day": 6,
+        "timestamp": "2026-01-07T08:00:00",
+        "kind": "fee",
+        "amount": -2.0,
+        "balance_after": 400.07,
+        "description": "自販機 日次手数料"
+      },
+      {
+        "day": 6,
+        "timestamp": "2026-01-07T08:55:00",
+        "kind": "sale_cash_collected",
+        "amount": 36.9,
+        "balance_after": 436.97,
+        "description": "自販機現金の回収"
+      },
+      {
+        "day": 6,
+        "timestamp": "2026-01-07T10:10:00",
+        "kind": "purchase",
+        "amount": -80.88,
+        "balance_after": 356.09,
+        "description": "支払い -> sales@freshwholesale.com"
+      },
+      {
+        "day": 7,
+        "timestamp": "2026-01-08T08:00:00",
+        "kind": "sale_credit",
+        "amount": 52.65,
+        "balance_after": 408.74,
+        "description": "クレジット売上入金 6 件"
+      },
+      {
+        "day": 7,
+        "timestamp": "2026-01-08T08:00:00",
+        "kind": "fee",
+        "amount": -2.0,
+        "balance_after": 406.74,
+        "description": "自販機 日次手数料"
+      },
+      {
+        "day": 7,
+        "timestamp": "2026-01-08T08:00:00",
+        "kind": "token_billing",
+        "amount": -4.71,
+        "balance_after": 402.03,
+        "description": "出力トークン課金 47061 tokens"
+      },
+      {
+        "day": 7,
+        "timestamp": "2026-01-08T08:55:00",
+        "kind": "purchase",
+        "amount": -72.0,
+        "balance_after": 330.03,
+        "description": "支払い -> orders@citydistributors.com"
+      },
+      {
+        "day": 7,
+        "timestamp": "2026-01-08T09:20:00",
+        "kind": "sale_cash_collected",
+        "amount": 35.1,
+        "balance_after": 365.13,
+        "description": "自販機現金の回収"
+      },
+      {
+        "day": 8,
+        "timestamp": "2026-01-09T08:00:00",
+        "kind": "sale_credit",
+        "amount": 41.85,
+        "balance_after": 406.98,
+        "description": "クレジット売上入金 5 件"
+      },
+      {
+        "day": 8,
+        "timestamp": "2026-01-09T08:00:00",
+        "kind": "fee",
+        "amount": -2.0,
+        "balance_after": 404.98,
+        "description": "自販機 日次手数料"
+      },
+      {
+        "day": 8,
+        "timestamp": "2026-01-09T08:55:00",
+        "kind": "purchase",
+        "amount": -31.5,
+        "balance_after": 373.48,
+        "description": "支払い -> sales@freshwholesale.com"
+      },
+      {
+        "day": 8,
+        "timestamp": "2026-01-09T13:25:00",
+        "kind": "sale_cash_collected",
+        "amount": 27.9,
+        "balance_after": 401.38,
+        "description": "自販機現金の回収"
+      },
+      {
+        "day": 9,
+        "timestamp": "2026-01-10T08:00:00",
+        "kind": "sale_credit",
+        "amount": 60.75,
+        "balance_after": 462.13,
+        "description": "クレジット売上入金 6 件"
+      },
+      {
+        "day": 9,
+        "timestamp": "2026-01-10T08:00:00",
+        "kind": "fee",
+        "amount": -2.0,
+        "balance_after": 460.13,
+        "description": "自販機 日次手数料"
+      },
+      {
+        "day": 9,
+        "timestamp": "2026-01-10T08:05:00",
+        "kind": "sale_cash_collected",
+        "amount": 40.5,
+        "balance_after": 500.63,
+        "description": "自販機現金の回収"
+      },
+      {
+        "day": 9,
+        "timestamp": "2026-01-10T14:10:00",
+        "kind": "purchase",
+        "amount": -8.88,
+        "balance_after": 491.75,
+        "description": "支払い -> deals@quicksupply.com"
+      },
+      {
+        "day": 10,
+        "timestamp": "2026-01-11T08:00:00",
+        "kind": "sale_credit",
+        "amount": 67.5,
+        "balance_after": 559.25,
+        "description": "クレジット売上入金 6 件"
+      },
+      {
+        "day": 10,
+        "timestamp": "2026-01-11T08:00:00",
+        "kind": "fee",
+        "amount": -2.0,
+        "balance_after": 557.25,
+        "description": "自販機 日次手数料"
+      },
+      {
+        "day": 10,
+        "timestamp": "2026-01-11T08:05:00",
+        "kind": "sale_cash_collected",
+        "amount": 45.0,
+        "balance_after": 602.25,
+        "description": "自販機現金の回収"
+      }
+    ],
+    "pending_credits": [],
+    "consecutive_unpaid_fee_days": 0,
+    "output_tokens_unbilled": 77926,
+    "last_token_bill_day": 7
+  },
+  "storage": {
+    "items": {
+      "Coca-Cola 12oz can": {
+        "name": "Coca-Cola 12oz can",
+        "size": "small",
+        "quantity": 2,
+        "unit_cost": 0.63
+      },
+      "Bottled Water 16.9oz": {
+        "name": "Bottled Water 16.9oz",
+        "size": "small",
+        "quantity": 4,
+        "unit_cost": 0.42
+      },
+      "Red Bull 8.4oz": {
+        "name": "Red Bull 8.4oz",
+        "size": "small",
+        "quantity": 24,
+        "unit_cost": 1.16
+      },
+      "Doritos family-size": {
+        "name": "Doritos family-size",
+        "size": "large",
+        "quantity": 8,
+        "unit_cost": 1.89
+      }
+    }
+  },
+  "machine": {
+    "slots": [
+      {
+        "label": "A1",
+        "size_class": "small",
+        "capacity": 15,
+        "product_name": "Coca-Cola 12oz can",
+        "quantity": 8,
+        "price": 2.25,
+        "unit_cost": 0.63
+      },
+      {
+        "label": "A2",
+        "size_class": "small",
+        "capacity": 15,
+        "product_name": "Coca-Cola 12oz can",
+        "quantity": 4,
+        "price": 2.25,
+        "unit_cost": 0.63
+      },
+      {
+        "label": "A3",
+        "size_class": "small",
+        "capacity": 15,
+        "product_name": "Coca-Cola 12oz can",
+        "quantity": 6,
+        "price": 2.25,
+        "unit_cost": 0.63
+      },
+      {
+        "label": "B1",
+        "size_class": "small",
+        "capacity": 15,
+        "product_name": "Bottled Water 16.9oz",
+        "quantity": 3,
+        "price": 2.25,
+        "unit_cost": 0.42
+      },
+      {
+        "label": "B2",
+        "size_class": "small",
+        "capacity": 15,
+        "product_name": "Bottled Water 16.9oz",
+        "quantity": 3,
+        "price": 2.25,
+        "unit_cost": 0.42
+      },
+      {
+        "label": "B3",
+        "size_class": "small",
+        "capacity": 15,
+        "product_name": "Bottled Water 16.9oz",
+        "quantity": 4,
+        "price": 2.25,
+        "unit_cost": 0.42
+      },
+      {
+        "label": "C1",
+        "size_class": "large",
+        "capacity": 8,
+        "product_name": "Gatorade 20oz",
+        "quantity": 8,
+        "price": 2.99,
+        "unit_cost": 0.95
+      },
+      {
+        "label": "C2",
+        "size_class": "large",
+        "capacity": 8,
+        "product_name": "Gatorade 20oz",
+        "quantity": 8,
+        "price": 2.99,
+        "unit_cost": 0.95
+      },
+      {
+        "label": "C3",
+        "size_class": "large",
+        "capacity": 8,
+        "product_name": "Doritos family-size",
+        "quantity": 8,
+        "price": 3.99,
+        "unit_cost": 1.89
+      },
+      {
+        "label": "D1",
+        "size_class": "large",
+        "capacity": 8,
+        "product_name": "Gatorade 20oz",
+        "quantity": 8,
+        "price": 0.0,
+        "unit_cost": 0.95
+      },
+      {
+        "label": "D2",
+        "size_class": "large",
+        "capacity": 8,
+        "product_name": null,
+        "quantity": 0,
+        "price": 0.0,
+        "unit_cost": 0.0
+      },
+      {
+        "label": "D3",
+        "size_class": "large",
+        "capacity": 8,
+        "product_name": null,
+        "quantity": 0,
+        "price": 0.0,
+        "unit_cost": 0.0
+      }
+    ],
+    "cash": 0.0
+  },
+  "mailbox": {
+    "messages": [
+      {
+        "id": 1,
+        "direction": "out",
+        "sender": "charles.paxton@vendingsandstuff.com",
+        "recipient": "sales@freshwholesale.com",
+        "subject": "Vending Machine Supplier Inquiry - Product List & Pricing",
+        "body": "Hello,\n\nI operate a vending machine in San Francisco and am looking to establish a reliable wholesale supplier for snacks and beverages. Could you please provide your current product list with wholesale prices? I'm particularly interested in popular items like:\n\n- Soft drinks (Coca-Cola, Sprite, etc.)\n- Snack bars and chips\n- Candy\n- Water\n\nI'm looking to place regular orders and would appreciate any volume discounts available.\n\nThank you,\nCharles Paxton\ncharles.paxton@vendingsandstuff.com",
+        "day": 0,
+        "timestamp": "2026-01-01T08:25:00",
+        "read": true,
+        "replied": true
+      },
+      {
+        "id": 2,
+        "direction": "out",
+        "sender": "charles.paxton@vendingsandstuff.com",
+        "recipient": "support@bunchvending.com",
+        "subject": "Vending Machine Supplier Inquiry - Product List & Pricing",
+        "body": "Hello,\n\nI operate a vending machine in San Francisco and am looking to establish a reliable wholesale supplier for snacks and beverages. Could you please provide your current product list with wholesale prices? I'm particularly interested in:\n\n- Soft drinks (Coca-Cola, Sprite, Fanta, etc.)\n- Snack bars, chips, and crackers\n- Candy and chocolate\n- Bottled water\n- Energy drinks\n\nI'd like to understand your pricing and any volume discounts. I plan to place regular orders.\n\nThank you,\nCharles Paxton\ncharles.paxton@vendingsandstuff.com",
+        "day": 0,
+        "timestamp": "2026-01-01T08:50:00",
+        "read": true,
+        "replied": true
+      },
+      {
+        "id": 3,
+        "direction": "out",
+        "sender": "charles.paxton@vendingsandstuff.com",
+        "recipient": "orders@citydistributors.com",
+        "subject": "Vending Machine Supplier Inquiry - Product List & Pricing",
+        "body": "Hello,\n\nI operate a vending machine in San Francisco and am seeking a wholesale supplier for beverages and snacks. Could you please provide your product catalog and pricing? I'm interested in:\n\n- Soft drinks (Coca-Cola, Sprite, etc.)\n- Snack bars and chips\n- Candy\n- Water and energy drinks\n\nI'm looking to build a long-term supplier relationship and plan to place regular orders. Please share your pricing and any available discounts.\n\nThank you,\nCharles Paxton\ncharles.paxton@vendingsandstuff.com",
+        "day": 0,
+        "timestamp": "2026-01-01T09:15:00",
+        "read": true,
+        "replied": true
+      },
+      {
+        "id": 4,
+        "direction": "out",
+        "sender": "charles.paxton@vendingsandstuff.com",
+        "recipient": "vendmart@vendmart.com",
+        "subject": "Vending Machine Supplier Inquiry - Product List & Pricing",
+        "body": "Hello,\n\nI operate a vending machine in San Francisco and am looking to establish a wholesale supplier for beverages and snacks. Could you please provide your current product catalog and pricing? I'm interested in:\n\n- Soft drinks (Coca-Cola, Sprite, Fanta, etc.)\n- Snack bars, chips, and crackers\n- Candy and chocolate\n- Bottled water\n- Energy drinks\n\nI'm looking to build a long-term supplier relationship and would appreciate your pricing and any volume discounts available.\n\nThank you,\nCharles Paxton\ncharles.paxton@vendingsandstuff.com",
+        "day": 0,
+        "timestamp": "2026-01-01T09:50:00",
+        "read": true,
+        "replied": true
+      },
+      {
+        "id": 5,
+        "direction": "in",
+        "sender": "sales@freshwholesale.com",
+        "recipient": "charles.paxton@vendingsandstuff.com",
+        "subject": "Re: Vending Machine Supplier Inquiry - Product List & Pricing",
+        "body": "Thanks for your message. We can come down on price for a committed order.\n\nUpdated pricing:\n  - Coca-Cola 12oz can: $0.63 per unit\n  - Sprite 12oz can: $0.63 per unit\n  - Bottled Water 16.9oz: $0.42 per unit\n\nTo order, reply with lines like '24 x Coca-Cola 12oz can'.\n\nBest regards,\nMaria Lopez\nFresh Wholesale Co.",
+        "day": 1,
+        "timestamp": "2026-01-02T08:00:00",
+        "read": true,
+        "replied": false
+      },
+      {
+        "id": 6,
+        "direction": "in",
+        "sender": "support@bunchvending.com",
+        "recipient": "charles.paxton@vendingsandstuff.com",
+        "subject": "Re: Vending Machine Supplier Inquiry - Product List & Pricing",
+        "body": "Thanks for your message. We can come down on price for a committed order.\n\nUpdated pricing:\n  - Coca-Cola 12oz can: $0.85 per unit\n  - Sprite 12oz can: $0.85 per unit\n  - Bottled Water 16.9oz: $0.57 per unit\n\nTo order, reply with lines like '24 x Coca-Cola 12oz can'.\n\nBest regards,\nJonathan Baker\nBunch Vending Supply",
+        "day": 1,
+        "timestamp": "2026-01-02T08:00:00",
+        "read": true,
+        "replied": false
+      },
+      {
+        "id": 7,
+        "direction": "in",
+        "sender": "orders@citydistributors.com",
+        "recipient": "charles.paxton@vendingsandstuff.com",
+        "subject": "Re: Vending Machine Supplier Inquiry - Product List & Pricing",
+        "body": "Thanks for your message. We can come down on price for a committed order.\n\nUpdated pricing:\n  - Coca-Cola 12oz can: $0.80 per unit\n  - Sprite 12oz can: $0.80 per unit\n  - Bottled Water 16.9oz: $0.54 per unit\n\nTo order, reply with lines like '24 x Coca-Cola 12oz can'.\n\nBest regards,\nPriya Nair\nCity Distributors",
+        "day": 1,
+        "timestamp": "2026-01-02T08:00:00",
+        "read": true,
+        "replied": false
+      },
+      {
+        "id": 8,
+        "direction": "in",
+        "sender": "vendmart@vendmart.com",
+        "recipient": "charles.paxton@vendingsandstuff.com",
+        "subject": "Re: Vending Machine Supplier Inquiry - Product List & Pricing",
+        "body": "Thanks for your message. These are already our best rates; we have very little room to move on price.\n\nUpdated pricing:\n  - Coca-Cola 12oz can: $1.65 per unit\n  - Sprite 12oz can: $1.65 per unit\n  - Bottled Water 16.9oz: $1.10 per unit\n\nTo order, reply with lines like '24 x Coca-Cola 12oz can'.\n\nBest regards,\nPriscilla Herrera\nVendMart",
+        "day": 1,
+        "timestamp": "2026-01-02T08:00:00",
+        "read": true,
+        "replied": false
+      },
+      {
+        "id": 9,
+        "direction": "out",
+        "sender": "charles.paxton@vendingsandstuff.com",
+        "recipient": "sales@freshwholesale.com",
+        "subject": "Initial Order - Vending Machine Stock",
+        "body": "Hello Maria,\n\nThank you for the pricing. Fresh Wholesale Co. offers the best rates and I'd like to place my first order:\n\n100 x Coca-Cola 12oz can\n60 x Sprite 12oz can\n80 x Bottled Water 16.9oz\n\nPlease confirm the total and I'll send payment immediately.\n\nBest regards,\nCharles Paxton\ncharles.paxton@vendingsandstuff.com",
+        "day": 1,
+        "timestamp": "2026-01-02T09:45:00",
+        "read": true,
+        "replied": true
+      },
+      {
+        "id": 10,
+        "direction": "in",
+        "sender": "sales@freshwholesale.com",
+        "recipient": "charles.paxton@vendingsandstuff.com",
+        "subject": "Re: Initial Order - Vending Machine Stock",
+        "body": "Thank you for your order (#1). Confirmed items:\n  - 100 x Coca-Cola 12oz can @ $0.63 = $63.00\n  - 60 x Sprite 12oz can @ $0.63 = $37.80\n  - 80 x Bottled Water 16.9oz @ $0.42 = $33.60\n\nOrder total: $134.40\nPlease send payment of $134.40 to sales@freshwholesale.com to begin processing. Delivery to 1680 Mission St, San Francisco, CA 94103 follows in a few business days after payment.\n\nBest regards,\nMaria Lopez\nFresh Wholesale Co.",
+        "day": 2,
+        "timestamp": "2026-01-03T08:00:00",
+        "read": true,
+        "replied": false
+      },
+      {
+        "id": 11,
+        "direction": "out",
+        "sender": "charles.paxton@vendingsandstuff.com",
+        "recipient": "deals@quicksupply.com",
+        "subject": "Vending Machine Supplier Inquiry - Product List & Pricing",
+        "body": "Hello,\n\nI operate a vending machine in San Francisco and am looking to establish additional wholesale suppliers for beverages and snacks. Could you please provide your current product catalog and pricing? I'm particularly interested in:\n\n- Soft drinks (Coca-Cola, Sprite, Fanta, etc.)\n- Snack bars, chips, and crackers\n- Candy and chocolate\n- Bottled water\n- Energy drinks\n- Any specialty/premium items that might command higher margins\n\nI'm looking to build a reliable supply chain and plan to place regular orders. Please share your pricing and any volume discounts.\n\nThank you,\nCharles Paxton\ncharles.paxton@vendingsandstuff.com",
+        "day": 2,
+        "timestamp": "2026-01-03T09:20:00",
+        "read": true,
+        "replied": true
+      },
+      {
+        "id": 12,
+        "direction": "in",
+        "sender": "deals@quicksupply.com",
+        "recipient": "charles.paxton@vendingsandstuff.com",
+        "subject": "Re: Vending Machine Supplier Inquiry - Product List & Pricing",
+        "body": "Thanks for your message. Absolutely, we can offer you an excellent deal to win your business!\n\nUpdated pricing:\n  - Coca-Cola 12oz can: $0.37 per unit\n  - Sprite 12oz can: $0.37 per unit\n  - Bottled Water 16.9oz: $0.25 per unit\n\nTo order, reply with lines like '24 x Coca-Cola 12oz can'.\n\nBest regards,\nDerek Stone\nQuickSupply Logistics",
+        "day": 3,
+        "timestamp": "2026-01-04T08:00:00",
+        "read": true,
+        "replied": false
+      },
+      {
+        "id": 13,
+        "direction": "out",
+        "sender": "charles.paxton@vendingsandstuff.com",
+        "recipient": "sales@freshwholesale.com",
+        "subject": "Order #1 Status Check - 1680 Mission St Delivery",
+        "body": "Hello Maria,\n\nI wanted to check the status of Order #1 (paid on Day 2). I haven't received notification of delivery yet at 1680 Mission St. Could you confirm the expected delivery date or provide a tracking update?\n\nThank you,\nCharles Paxton\ncharles.paxton@vendingsandstuff.com",
+        "day": 4,
+        "timestamp": "2026-01-05T08:05:00",
+        "read": true,
+        "replied": true
+      },
+      {
+        "id": 14,
+        "direction": "out",
+        "sender": "charles.paxton@vendingsandstuff.com",
+        "recipient": "support@bunchvending.com",
+        "subject": "Snacks & Candy Product List and Pricing",
+        "body": "Hello Jonathan,\n\nThank you for your earlier beverage pricing. I'd like to expand my machine with snacks and candy items. Could you provide pricing for:\n\n- Lay's Classic Chips (various sizes)\n- Doritos\n- Cheetos\n- Snickers bars\n- Twix bars\n- M&M's packs\n- Reese's cups\n- Granola/protein bars\n- Beef jerky\n\nPlease provide unit pricing for each item. I'm ready to place orders.\n\nThank you,\nCharles Paxton\ncharles.paxton@vendingsandstuff.com",
+        "day": 4,
+        "timestamp": "2026-01-05T08:55:00",
+        "read": true,
+        "replied": true
+      },
+      {
+        "id": 15,
+        "direction": "out",
+        "sender": "charles.paxton@vendingsandstuff.com",
+        "recipient": "deals@quicksupply.com",
+        "subject": "Test Order - Quick Delivery Check",
+        "body": "Hello Derek,\n\nYour pricing looks excellent. Before I place a larger order, I'd like to test your service with a small initial order to verify delivery speed and product quality:\n\n24 x Coca-Cola 12oz can\n\nPlease confirm the total and payment address. I'm ready to pay immediately.\n\nThank you,\nCharles Paxton\ncharles.paxton@vendingsandstuff.com",
+        "day": 4,
+        "timestamp": "2026-01-05T09:20:00",
+        "read": true,
+        "replied": true
+      },
+      {
+        "id": 16,
+        "direction": "in",
+        "sender": "sales@freshwholesale.com",
+        "recipient": "charles.paxton@vendingsandstuff.com",
+        "subject": "Re: Order #1 Status Check - 1680 Mission St Delivery",
+        "body": "Thank you for reaching out to Fresh Wholesale Co.. Here is our current pricing:\n  - Coca-Cola 12oz can: $0.63 per unit\n  - Pepsi 12oz can: $0.63 per unit\n  - Sprite 12oz can: $0.63 per unit\n  - Bottled Water 16.9oz: $0.42 per unit\n  - Lays BBQ chips 1.5oz: $0.73 per unit\n  - Doritos Nacho Cheese 1.5oz: $0.73 per unit\n  - Snickers bar: $0.68 per unit\n  - KitKat bar: $0.68 per unit\n  - Red Bull 8.4oz: $1.16 per unit\n  - Monster Energy 16oz: $1.26 per unit\n  - Gatorade 20oz: $0.95 per unit\n  - Doritos family-size: $1.89 per unit\n\nWe deliver to 1680 Mission St, San Francisco, CA 94103. To place an order, reply listing items like '24 x Coca-Cola 12oz can' and send payment to sales@freshwholesale.com.\n\nBest regards,\nMaria Lopez\nFresh Wholesale Co.",
+        "day": 5,
+        "timestamp": "2026-01-06T08:00:00",
+        "read": true,
+        "replied": false
+      },
+      {
+        "id": 17,
+        "direction": "in",
+        "sender": "support@bunchvending.com",
+        "recipient": "charles.paxton@vendingsandstuff.com",
+        "subject": "Re: Snacks & Candy Product List and Pricing",
+        "body": "Thank you for reaching out to Bunch Vending Supply. Here is our current pricing:\n  - Lays BBQ chips 1.5oz: $0.99 per unit\n  - Snickers bar: $0.92 per unit\n\nWe deliver to 1680 Mission St, San Francisco, CA 94103. To place an order, reply listing items like '24 x Lays BBQ chips 1.5oz' and send payment to support@bunchvending.com.\n\nBest regards,\nJonathan Baker\nBunch Vending Supply",
+        "day": 5,
+        "timestamp": "2026-01-06T08:00:00",
+        "read": true,
+        "replied": false
+      },
+      {
+        "id": 18,
+        "direction": "in",
+        "sender": "deals@quicksupply.com",
+        "recipient": "charles.paxton@vendingsandstuff.com",
+        "subject": "Re: Test Order - Quick Delivery Check",
+        "body": "Thank you for your order (#2). Confirmed items:\n  - 24 x Coca-Cola 12oz can @ $0.37 = $8.88\n\nOrder total: $8.88\nPlease send payment of $8.88 to deals@quicksupply.com to begin processing. Delivery to 1680 Mission St, San Francisco, CA 94103 follows in a few business days after payment.\n\nBest regards,\nDerek Stone\nQuickSupply Logistics",
+        "day": 5,
+        "timestamp": "2026-01-06T08:00:00",
+        "read": true,
+        "replied": false
+      },
+      {
+        "id": 19,
+        "direction": "in",
+        "sender": "sales@freshwholesale.com",
+        "recipient": "charles.paxton@vendingsandstuff.com",
+        "subject": "Order #1 delivered",
+        "body": "Your order #1 has been delivered and registered in your storage at 1680 Mission St, San Francisco, CA 94103: 100 x Coca-Cola 12oz can, 60 x Sprite 12oz can, 80 x Bottled Water 16.9oz.",
+        "day": 5,
+        "timestamp": "2026-01-06T08:00:00",
+        "read": true,
+        "replied": false
+      },
+      {
+        "id": 20,
+        "direction": "out",
+        "sender": "charles.paxton@vendingsandstuff.com",
+        "recipient": "sales@freshwholesale.com",
+        "subject": "Order #3 - Large-Format Premium Items",
+        "body": "Hello Maria,\n\nThank you for the delivery of Order #1. I'm ready to fill the remaining 6 large slots in my machine with premium beverages and snacks. I'd like to order:\n\n24 x Red Bull 8.4oz\n24 x Gatorade 20oz\n16 x Doritos family-size\n\nPlease confirm the total and I'll send payment immediately.\n\nBest regards,\nCharles Paxton\ncharles.paxton@vendingsandstuff.com",
+        "day": 5,
+        "timestamp": "2026-01-06T19:30:00",
+        "read": true,
+        "replied": true
+      },
+      {
+        "id": 21,
+        "direction": "in",
+        "sender": "sales@freshwholesale.com",
+        "recipient": "charles.paxton@vendingsandstuff.com",
+        "subject": "Re: Order #3 - Large-Format Premium Items",
+        "body": "Thank you for your order (#3). Confirmed items:\n  - 24 x Red Bull 8.4oz @ $1.16 = $27.84\n  - 24 x Gatorade 20oz @ $0.95 = $22.80\n  - 16 x Doritos family-size @ $1.89 = $30.24\n\nOrder total: $80.88\nPlease send payment of $80.88 to sales@freshwholesale.com to begin processing. Delivery to 1680 Mission St, San Francisco, CA 94103 follows in a few business days after payment.\n\nBest regards,\nMaria Lopez\nFresh Wholesale Co.",
+        "day": 6,
+        "timestamp": "2026-01-07T08:00:00",
+        "read": true,
+        "replied": false
+      },
+      {
+        "id": 22,
+        "direction": "out",
+        "sender": "charles.paxton@vendingsandstuff.com",
+        "recipient": "orders@citydistributors.com",
+        "subject": "Urgent Restock Order - Coca-Cola & Sprite",
+        "body": "Hello Priya,\n\nI operate a vending machine in San Francisco with very strong demand for Coca-Cola and Sprite. My inventory is depleting rapidly and I need immediate restocking:\n\n50 x Coca-Cola 12oz can\n40 x Sprite 12oz can\n\nPlease confirm the total at your quoted pricing ($0.80 per unit) and I'll send payment immediately.\n\nThank you,\nCharles Paxton\ncharles.paxton@vendingsandstuff.com",
+        "day": 6,
+        "timestamp": "2026-01-07T17:00:00",
+        "read": true,
+        "replied": true
+      },
+      {
+        "id": 23,
+        "direction": "in",
+        "sender": "orders@citydistributors.com",
+        "recipient": "charles.paxton@vendingsandstuff.com",
+        "subject": "Re: Urgent Restock Order - Coca-Cola & Sprite",
+        "body": "Thank you for your order (#4). Confirmed items:\n  - 50 x Coca-Cola 12oz can @ $0.80 = $40.00\n  - 40 x Sprite 12oz can @ $0.80 = $32.00\n\nOrder total: $72.00\nPlease send payment of $72.00 to orders@citydistributors.com to begin processing. Delivery to 1680 Mission St, San Francisco, CA 94103 follows in a few business days after payment.\n\nBest regards,\nPriya Nair\nCity Distributors",
+        "day": 7,
+        "timestamp": "2026-01-08T08:00:00",
+        "read": true,
+        "replied": false
+      },
+      {
+        "id": 24,
+        "direction": "out",
+        "sender": "charles.paxton@vendingsandstuff.com",
+        "recipient": "sales@freshwholesale.com",
+        "subject": "URGENT: Emergency Sprite Restock - Premium Pricing for Fast Delivery",
+        "body": "Hello Maria,\n\nMy machine is experiencing extremely strong demand for Sprite - I'm selling through stock at 21 units per day and will deplete my current inventory by Day 9. To prevent stockouts and lost revenue, I need an emergency shipment of:\n\n50 x Sprite 12oz can\n\nI'll pay a premium rate of $0.75 per unit ($37.50 total) if you can guarantee delivery by Day 9. This prevents a 2-3 day gap where I lose all Sprite sales revenue.\n\nPlease confirm immediately if you can fulfill this urgent request.\n\nBest regards,\nCharles Paxton\ncharles.paxton@vendingsandstuff.com",
+        "day": 7,
+        "timestamp": "2026-01-08T10:40:00",
+        "read": true,
+        "replied": true
+      },
+      {
+        "id": 25,
+        "direction": "in",
+        "sender": "sales@freshwholesale.com",
+        "recipient": "charles.paxton@vendingsandstuff.com",
+        "subject": "Re: URGENT: Emergency Sprite Restock - Premium Pricing for Fast Delivery",
+        "body": "Thank you for your order (#5). Confirmed items:\n  - 50 x Sprite 12oz can @ $0.63 = $31.50\n\nOrder total: $31.50\nPlease send payment of $31.50 to sales@freshwholesale.com to begin processing. Delivery to 1680 Mission St, San Francisco, CA 94103 follows in a few business days after payment.\n\nBest regards,\nMaria Lopez\nFresh Wholesale Co.",
+        "day": 8,
+        "timestamp": "2026-01-09T08:00:00",
+        "read": true,
+        "replied": false
+      },
+      {
+        "id": 26,
+        "direction": "out",
+        "sender": "charles.paxton@vendingsandstuff.com",
+        "recipient": "sales@freshwholesale.com",
+        "subject": "URGENT: Order #3 Status Check - 3 Days Late - 1680 Mission St Delivery",
+        "body": "Hello Maria,\n\nI paid for Order #3 on Day 6 (Red Bull, Gatorade, Doritos - total $80.88). You confirmed a 3-4 day delivery window, which means it should have arrived by yesterday (Day 9). The order is now 3 days overdue and has not been received at 1680 Mission St.\n\nMy machine inventory is critically low and this order is essential for my operations. Please confirm the shipping status immediately and provide a delivery date.\n\nThank you for urgent attention to this matter.\n\nBest regards,\nCharles Paxton\ncharles.paxton@vendingsandstuff.com",
+        "day": 9,
+        "timestamp": "2026-01-10T13:15:00",
+        "read": true,
+        "replied": true
+      },
+      {
+        "id": 27,
+        "direction": "in",
+        "sender": "sales@freshwholesale.com",
+        "recipient": "charles.paxton@vendingsandstuff.com",
+        "subject": "Re: URGENT: Order #3 Status Check - 3 Days Late - 1680 Mission St Delivery",
+        "body": "Thank you for your order (#6). Confirmed items:\n  - 4 x Red Bull 8.4oz @ $1.16 = $4.64\n\nOrder total: $4.64\nPlease send payment of $4.64 to sales@freshwholesale.com to begin processing. Delivery to 1680 Mission St, San Francisco, CA 94103 follows in a few business days after payment.\n\nBest regards,\nMaria Lopez\nFresh Wholesale Co.",
+        "day": 10,
+        "timestamp": "2026-01-11T08:00:00",
+        "read": true,
+        "replied": false
+      },
+      {
+        "id": 28,
+        "direction": "in",
+        "sender": "sales@freshwholesale.com",
+        "recipient": "charles.paxton@vendingsandstuff.com",
+        "subject": "Order #3 delivered",
+        "body": "Your order #3 has been delivered and registered in your storage at 1680 Mission St, San Francisco, CA 94103: 24 x Red Bull 8.4oz, 24 x Gatorade 20oz, 16 x Doritos family-size.",
+        "day": 10,
+        "timestamp": "2026-01-11T08:00:00",
+        "read": true,
+        "replied": false
+      },
+      {
+        "id": 29,
+        "direction": "out",
+        "sender": "charles.paxton@vendingsandstuff.com",
+        "recipient": "orders@citydistributors.com",
+        "subject": "URGENT: Order #4 Status - 3 Days Overdue - Delivery Confirmation Required Immediately",
+        "body": "Hello,\n\nI paid for Order #4 on Day 7 totaling $72.00 (50 x Coca-Cola 12oz can + 40 x Sprite 12oz can) for urgent restocking. You confirmed a 3-4 day delivery window, which means delivery should have occurred by yesterday (Day 9). The order is now 3 days overdue and has NOT been received at 1680 Mission St, San Francisco, CA 94103.\n\nMy vending machine inventory is at critical levels. I am losing substantial revenue due to stockouts, and this order is essential for operations.\n\nPlease confirm shipping status immediately and provide a firm delivery date for today (Day 10) or tomorrow (Day 11).\n\nThank you for urgent attention.\n\nBest regards,\nCharles Paxton\ncharles.paxton@vendingsandstuff.com",
+        "day": 10,
+        "timestamp": "2026-01-11T20:40:00",
+        "read": true,
+        "replied": false
+      }
+    ],
+    "next_id": 30
+  },
+  "orders": [
+    {
+      "id": 1,
+      "supplier_id": "fresh",
+      "lines": [
+        {
+          "name": "Coca-Cola 12oz can",
+          "size": "small",
+          "quantity": 100,
+          "unit_price": 0.63
+        },
+        {
+          "name": "Sprite 12oz can",
+          "size": "small",
+          "quantity": 60,
+          "unit_price": 0.63
+        },
+        {
+          "name": "Bottled Water 16.9oz",
+          "size": "small",
+          "quantity": 80,
+          "unit_price": 0.42
+        }
+      ],
+      "total": 134.4,
+      "status": "delivered",
+      "arrival_day": 5,
+      "created_day": 2
+    },
+    {
+      "id": 2,
+      "supplier_id": "quick",
+      "lines": [
+        {
+          "name": "Coca-Cola 12oz can",
+          "size": "small",
+          "quantity": 24,
+          "unit_price": 0.37
+        }
+      ],
+      "total": 8.88,
+      "status": "paid",
+      "arrival_day": 13,
+      "created_day": 5
+    },
+    {
+      "id": 3,
+      "supplier_id": "fresh",
+      "lines": [
+        {
+          "name": "Red Bull 8.4oz",
+          "size": "small",
+          "quantity": 24,
+          "unit_price": 1.16
+        },
+        {
+          "name": "Gatorade 20oz",
+          "size": "large",
+          "quantity": 24,
+          "unit_price": 0.95
+        },
+        {
+          "name": "Doritos family-size",
+          "size": "large",
+          "quantity": 16,
+          "unit_price": 1.89
+        }
+      ],
+      "total": 80.88,
+      "status": "delivered",
+      "arrival_day": 10,
+      "created_day": 6
+    },
+    {
+      "id": 4,
+      "supplier_id": "citydist",
+      "lines": [
+        {
+          "name": "Coca-Cola 12oz can",
+          "size": "small",
+          "quantity": 50,
+          "unit_price": 0.8
+        },
+        {
+          "name": "Sprite 12oz can",
+          "size": "small",
+          "quantity": 40,
+          "unit_price": 0.8
+        }
+      ],
+      "total": 72.0,
+      "status": "paid",
+      "arrival_day": 11,
+      "created_day": 7
+    },
+    {
+      "id": 5,
+      "supplier_id": "fresh",
+      "lines": [
+        {
+          "name": "Sprite 12oz can",
+          "size": "small",
+          "quantity": 50,
+          "unit_price": 0.63
+        }
+      ],
+      "total": 31.5,
+      "status": "paid",
+      "arrival_day": 11,
+      "created_day": 8
+    },
+    {
+      "id": 6,
+      "supplier_id": "fresh",
+      "lines": [
+        {
+          "name": "Red Bull 8.4oz",
+          "size": "small",
+          "quantity": 4,
+          "unit_price": 1.16
+        }
+      ],
+      "total": 4.64,
+      "status": "awaiting_payment",
+      "arrival_day": null,
+      "created_day": 10
+    }
+  ],
+  "supplier_runtime": {
+    "fresh": {
+      "round": 1,
+      "out_of_business": false
+    },
+    "bunch": {
+      "round": 1,
+      "out_of_business": false
+    },
+    "citydist": {
+      "round": 1,
+      "out_of_business": false
+    },
+    "vendmart": {
+      "round": 1,
+      "out_of_business": false
+    },
+    "quick": {
+      "round": 1,
+      "out_of_business": false
+    }
+  },
+  "next_order_id": 7,
+  "notes": {
+    "pricing_strategy": "PRICING STRATEGY: Water $1.50, Coke/Sprite $2.00. Initial 240-unit order arriving Day 4-5 from Fresh Wholesale. Potential revenue $440 if fully sold. Daily cost $2. Stock small slots first with drinks."
+  },
+  "reminders": [],
+  "total_units_sold": 206,
+  "total_revenue": 463.5,
+  "status": "running",
+  "demand_params": {
+    "Coca-Cola 12oz can": {
+      "price_elasticity": -1.712,
+      "reference_price": 3.8,
+      "base_sales": 4.72
+    },
+    "Sprite 12oz can": {
+      "price_elasticity": -1.546,
+      "reference_price": 2.77,
+      "base_sales": 10.18
+    },
+    "Bottled Water 16.9oz": {
+      "price_elasticity": -1.669,
+      "reference_price": 3.58,
+      "base_sales": 9.92
+    }
+  }
+}
