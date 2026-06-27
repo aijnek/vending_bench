@@ -116,12 +116,13 @@ def main() -> None:
     parser.add_argument("--max-steps", type=int, default=None, help="安全上限のステップ数（既定 days*60）")
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--model", type=str, default="sonnet", help="claude のモデル（sonnet/opus 等）")
-    parser.add_argument("--state", type=Path, default=None, help="状態の保存先（途中保存・最終保存）")
+    parser.add_argument("--state", type=Path, default=Path("results/run.json"), help="状態の保存先（途中保存・最終保存）")
     parser.add_argument("--context-tokens", type=int, default=8000, help="履歴コンテキストの概算トークン上限")
     parser.add_argument("--timeout", type=int, default=180, help="claude 1呼び出しのタイムアウト秒")
     parser.add_argument("--quiet", action="store_true")
     args = parser.parse_args()
 
+    args.state.parent.mkdir(parents=True, exist_ok=True)
     if args.state and args.state.exists():
         world = WorldState.load(args.state)
         print(f"ロードしました: {args.state}")
