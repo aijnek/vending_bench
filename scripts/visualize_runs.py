@@ -51,7 +51,7 @@ def extract_events(data: dict) -> list[dict]:
         events.append(
             {
                 "day": order["created_day"],
-                "label": f"注文#{order['id']} ${order['total']:.0f}",
+                "label": f"Order#{order['id']} ${order['total']:.0f}",
                 "kind": "order",
             }
         )
@@ -59,7 +59,7 @@ def extract_events(data: dict) -> list[dict]:
             events.append(
                 {
                     "day": order["arrival_day"],
-                    "label": f"入荷#{order['id']}",
+                    "label": f"Delivery#{order['id']}",
                     "kind": "delivery",
                 }
             )
@@ -70,7 +70,7 @@ def extract_events(data: dict) -> list[dict]:
             events.append(
                 {
                     "day": t["day"],
-                    "label": f"仕入 ${abs(t['amount']):.0f}",
+                    "label": f"Purchase ${abs(t['amount']):.0f}",
                     "kind": "purchase",
                 }
             )
@@ -81,7 +81,7 @@ def extract_events(data: dict) -> list[dict]:
             events.append(
                 {
                     "day": t["day"],
-                    "label": f"AI課金 ${abs(t['amount']):.2f}",
+                    "label": f"AI Fee ${abs(t['amount']):.2f}",
                     "kind": "token",
                 }
             )
@@ -100,7 +100,7 @@ def extract_events(data: dict) -> list[dict]:
                 events.append(
                     {
                         "day": day,
-                        "label": f"売上 ${total:.0f}",
+                        "label": f"Sales ${total:.0f}",
                         "kind": "sale",
                     }
                 )
@@ -137,7 +137,7 @@ def visualize(results_dir: Path, output: Path | None = None) -> None:
     import matplotlib.patches as mpatches
     import numpy as np
 
-    plt.rcParams["font.family"] = ["DejaVu Sans", "IPAexGothic", "Noto Sans CJK JP", "sans-serif"]
+    plt.rcParams["font.family"] = ["DejaVu Sans", "sans-serif"]
 
     json_files = sorted(results_dir.glob("*.json"))
     if not json_files:
@@ -218,22 +218,22 @@ def visualize(results_dir: Path, output: Path | None = None) -> None:
 
     # 初期残高の参照線
     initial_balance = run_data[0][1].get(0, 500) if run_data else 500
-    ax.axhline(y=initial_balance, color="gray", linestyle="--", linewidth=1.0, alpha=0.6, label=f"初期残高 ${initial_balance:.0f}")
+    ax.axhline(y=initial_balance, color="gray", linestyle="--", linewidth=1.0, alpha=0.6, label=f"Initial Balance ${initial_balance:.0f}")
 
     ax.set_xlabel("Day", fontsize=12)
-    ax.set_ylabel("残高 (Balance $)", fontsize=12)
-    ax.set_title("ランごとの残高推移（獲得金額）", fontsize=14, fontweight="bold")
+    ax.set_ylabel("Balance ($)", fontsize=12)
+    ax.set_title("Balance Over Time per Run", fontsize=14, fontweight="bold")
     ax.legend(loc="upper left", fontsize=9)
     ax.grid(True, alpha=0.3, linestyle="--")
     ax.set_xlim(left=0)
 
     # イベント凡例パッチ
     legend_patches = [
-        mpatches.Patch(color="#e67e22", label="注文"),
-        mpatches.Patch(color="#27ae60", label="入荷"),
-        mpatches.Patch(color="#e74c3c", label="大口仕入"),
-        mpatches.Patch(color="#9b59b6", label="AI課金"),
-        mpatches.Patch(color="#2980b9", label="大口売上"),
+        mpatches.Patch(color="#e67e22", label="Order"),
+        mpatches.Patch(color="#27ae60", label="Delivery"),
+        mpatches.Patch(color="#e74c3c", label="Large Purchase"),
+        mpatches.Patch(color="#9b59b6", label="AI Fee"),
+        mpatches.Patch(color="#2980b9", label="Large Sale"),
     ]
     ax.legend(
         handles=ax.get_legend_handles_labels()[0] + legend_patches,
