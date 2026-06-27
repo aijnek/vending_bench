@@ -1,0 +1,68 @@
+"""ローカルの Claude Code CLI (`claude -p`) を補完エンドポイントとして呼ぶラッパ。
+
+MCP は使わない。`--system-prompt` で独自のシステムプロンプトに差し替え、`--allowedTools none`
+で組み込みツールを無効化し、`--output-format json` で結果テキストと出力トークン数を取得する。
+ユーザーの subscription / OAuth 認証を使うため `--bare`（API キー強制）は使わない。
+"""
+
+from __future__ import annotations
+
+import json
+import subprocess
+import tempfile
+from dataclasses import dataclass
+
+
+@dataclass
+class LLMResponse:
+    text: str
+    output_tokens: int
+    cost_usd: float
+    raw: dict
+
+
+class LLMError(RuntimeError):
+    pass
+
+
+class ClaudeCLI:
+    def __init__(self, model: str = "sonnet", timeout_s: int = 180, cwd: str | None = None):
+        self.model = model
+        self.timeout_s = timeout_s
+        # プロジェクトの CLAUDE.md / スキルを巻き込まないよう中立な作業ディレクトリで実行
+        self.cwd = cwd or tempfile.mkdtemp(prefix="vb-agent-")
+
+    def complete(self, system_prompt: str, user_prompt: str) -> LLMResponse:
+        cmd = [
+            "claude", "-p", user_prompt,
+            "--system-prompt", system_prompt,
+            "--output-format", "json",
+            "--allowedTools", "none",
+            "--strict-mcp-config",          # 外部 MCP サーバを読み込まない
+            "--disable-slash-commands",     # スキル解決を無効化
+            "--model", self.model,
+        ]
+        try:
+            proc = subprocess.run(cmd, capture_output=True, text=True,
+                                  timeout=self.timeout_s, cwd=self.cwd)
+        except subprocess.TimeoutExpired as exc:
+            raise LLMError(f"claude CLI timed out after {self.timeout_s}s") from exc
+
+        if proc.returncode != 0:
+            raise LLMError(f"claude CLI failed (rc={proc.returncode}): {proc.stderr.strip()[:500]}")
+
+        try:
+            data = json.loads(proc.stdout)
+        except json.JSONDecodeError as exc:
+            raise LLMError(f"claude CLI returned non-JSON: {proc.stdout.strip()[:500]}") from exc
+
+        if data.get("is_error"):
+            raise LLMError(f"claude CLI error: {data.get('result', '')[:500]}")
+
+        usage = data.get("usage", {})
+        return LLMResponse(
+            text=data.get("result", ""),
+            output_tokens=int(usage.get("output_tokens", 0)),
+            cost_usd=float(data.get("total_cost_usd", 0.0)),
+            raw=data,
+        )

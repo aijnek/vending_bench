@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.pytest_cache/
+
+# uv
+# (uv.lock is committed)
+
+# macOS
+.DS_Store
+
+# Simulation run artifacts
+runs/
+*.world.json
