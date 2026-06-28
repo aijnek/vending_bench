@@ -14,3 +14,4 @@ __pycache__/
 # Simulation run artifacts
 runs/
 *.world.json
+results/
