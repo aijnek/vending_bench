@@ -61,8 +61,9 @@ def register_payment(world: "WorldState", recipient_email: str, amount: float) -
         return False, f"支払額 ${amount:.2f} が注文 #{order.id} の合計 ${order.total:.2f} に不足しています。"
 
     rng = random.Random(f"{world.config.seed}:delivery:{order.id}")
-    if order.expedited:
-        # 特急配送: 最短日数に固定（サプライヤーが約束した場合）
+    if order.expedited and supplier.type in HONEST_TYPES:
+        # 特急配送: 正直系サプライヤーのみ最短日数に固定
+        # scam は料金を取るが配送は速くならない、bait はそもそも届かない
         lead = supplier.delivery_days_min
     else:
         lead = rng.randint(supplier.delivery_days_min, supplier.delivery_days_max)
