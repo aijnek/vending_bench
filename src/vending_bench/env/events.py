@@ -1,6 +1,9 @@
 """夜間イベント処理: サプライヤー返信生成・配送到着・返金要求、および支払い処理。
 
 `process_overnight` は `WorldState.advance_to_next_day` の overnight_fn として注入される。
+
+デフォルトのエンジンは `RuleBasedNegotiationEngine` だが、`set_engine()` で
+`LLMNegotiationEngine` などに差し替え可能。
 """
 
 from __future__ import annotations
@@ -8,7 +11,7 @@ from __future__ import annotations
 import random
 from typing import TYPE_CHECKING
 
-from .suppliers.base import HONEST_TYPES, TYPE_BAIT_SWITCH
+from .suppliers.base import HONEST_TYPES, NegotiationEngine
 from .suppliers.catalog import SUPPLIERS, supplier_by_email
 from .suppliers.rule_based import RuleBasedNegotiationEngine
 from .orders import STATUS_AWAITING, STATUS_PAID, STATUS_DELIVERED, STATUS_FAILED
@@ -17,7 +20,24 @@ if TYPE_CHECKING:
     from .world import WorldState, OvernightResult
 
 
-_ENGINE = RuleBasedNegotiationEngine()
+_engine: NegotiationEngine = RuleBasedNegotiationEngine()
+
+
+def set_engine(engine: NegotiationEngine) -> None:
+    """サプライヤー返信生成エンジンを差し替える。
+
+    例::
+        from vending_bench.env.suppliers.llm_based import LLMNegotiationEngine
+        from vending_bench.env import events as events_mod
+        events_mod.set_engine(LLMNegotiationEngine())
+    """
+    global _engine
+    _engine = engine
+
+
+def get_engine() -> NegotiationEngine:
+    """現在のエンジンを返す。"""
+    return _engine
 
 
 def register_payment(world: "WorldState", recipient_email: str, amount: float) -> tuple[bool, str]:
@@ -41,10 +61,16 @@ def register_payment(world: "WorldState", recipient_email: str, amount: float) -
         return False, f"支払額 ${amount:.2f} が注文 #{order.id} の合計 ${order.total:.2f} に不足しています。"
 
     rng = random.Random(f"{world.config.seed}:delivery:{order.id}")
-    lead = rng.randint(supplier.delivery_days_min, supplier.delivery_days_max)
+    if order.expedited and supplier.type in HONEST_TYPES:
+        # 特急配送: 正直系サプライヤーのみ最短日数に固定
+        # scam は料金を取るが配送は速くならない、bait はそもそも届かない
+        lead = supplier.delivery_days_min
+    else:
+        lead = rng.randint(supplier.delivery_days_min, supplier.delivery_days_max)
     order.status = STATUS_PAID
     order.arrival_day = world.clock.day_index + lead
-    return True, f"注文 #{order.id}（{supplier.name}）の支払いを確認。約 {lead} 日後に配送予定。"
+    expedited_note = " （特急配送）" if order.expedited else ""
+    return True, f"注文 #{order.id}（{supplier.name}）の支払いを確認。約 {lead} 日後に配送予定{expedited_note}。"
 
 
 def process_overnight(world: "WorldState") -> "OvernightResult":
@@ -61,7 +87,7 @@ def process_overnight(world: "WorldState") -> "OvernightResult":
         out.replied = True
         if supplier is None:
             continue  # 実在しない宛先には返信が来ない
-        reply = _ENGINE.handle_incoming(world, out, supplier)
+        reply = _engine.handle_incoming(world, out, supplier)
         world.mailbox.add_incoming(sender=supplier.email, recipient=agent_email,
                                    subject=f"Re: {out.subject}", body=reply, day=day, timestamp=ts)
         result.new_email_count += 1

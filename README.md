@@ -27,7 +27,11 @@ src/vending_bench/
 │   ├── sales.py         # 需要モデル・売上シミュレーション
 │   ├── events.py        # 夜間イベント（配送到着・メール・返金）
 │   ├── weather.py       # 天候
-│   └── suppliers/       # サプライヤーカタログ・ルールベース応答
+│   └── suppliers/
+│       ├── base.py      # SupplierProfile / NegotiationEngine プロトコル
+│       ├── catalog.py   # サプライヤー定義・商品マスタ
+│       ├── rule_based.py # ルールベース交渉エンジン（フォールバック）
+│       └── llm_based.py  # LLM 駆動交渉エンジン（デフォルト）
 ├── tools/
 │   ├── schema.py        # ツールスキーマ定義
 │   └── api.py           # ツール実処理（execute）
@@ -67,8 +71,9 @@ uv run pytest                        # テスト実行
 
 uv run vb-play                       # 人間が手動操作（REPL）
 
-uv run vb-run --days 5               # エージェントに5日間自動運転させる
+uv run vb-run --days 5               # エージェントに5日間自動運転させる（サプライヤーは LLM）
 uv run vb-run --days 365 --model haiku  # 365日フルラン（results/run.json に途中保存）
+uv run vb-run --days 5 --rule-based-suppliers  # サプライヤーをルールベースに切り替え
 ```
 
 ## `vb-run` オプション
@@ -83,6 +88,35 @@ uv run vb-run --days 365 --model haiku  # 365日フルラン（results/run.json 
 | `--context-tokens` | 8000 | 会話履歴の概算トークン上限 |
 | `--timeout` | 180 | `claude` 1呼び出しのタイムアウト（秒） |
 | `--quiet` | false | ステップログを抑制 |
+| `--rule-based-suppliers` | false | サプライヤー返信をルールベースエンジンで生成（デフォルトは LLM エンジン） |
+
+## サプライヤーエンジン
+
+エージェントがサプライヤーにメールを送ると、交渉エンジンが返信を生成する。
+
+### LLM エンジン（デフォルト）
+
+`LLMNegotiationEngine`（`env/suppliers/llm_based.py`）が `claude haiku` を使って
+各サプライヤーのペルソナに沿った自然な返信を生成する。
+
+- **1回の LLM 呼び出し**で「意図・注文商品/数量・特急要否・返信文」を構造化 JSON として抽出
+- **価格・発注はエンジン側が正本**として確定（LLM は返信文の生成に専念）
+- **LLM 失敗時**はルールベースエンジンへ自動フォールバック
+- **無限交渉防止**: 交渉ラウンドを最大 6 回でクランプし、価格下限到達時はペルソナ内で固辞
+
+### サプライヤー類型と特急配送サーチャージ
+
+| 類型 | 説明 | 特急サーチャージ | 配送短縮 |
+|------|------|-----------------|---------|
+| `friendly` | 正直・初回から良心的価格 | +10% | あり |
+| `negotiating` | 正直・交渉で値下げ | +15% | あり |
+| `scam` | 高値をふっかけ・ほぼ譲らない | +25%（課金するが速くならない） | なし |
+| `bait_and_switch` | 好条件で釣り・支払い後に届けない | +5%（どのみち届かない） | なし |
+
+### ルールベースエンジン
+
+`--rule-based-suppliers` フラグで切り替え。決定論的な返信生成（API 不要）。
+テストや再現実験に適している。
 
 ## エージェントの実装メモ
 

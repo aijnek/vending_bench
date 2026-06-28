@@ -37,6 +37,8 @@ class PendingOrder:
     status: str = STATUS_AWAITING
     arrival_day: int | None = None
     created_day: int = 0
+    expedited: bool = False
+    """特急配送フラグ。True の場合、支払い後の配送日数をサプライヤー最短日数に固定する。"""
 
     @property
     def total_units(self) -> int:
@@ -47,6 +49,7 @@ class PendingOrder:
             "id": self.id, "supplier_id": self.supplier_id,
             "lines": [l.to_dict() for l in self.lines], "total": self.total,
             "status": self.status, "arrival_day": self.arrival_day, "created_day": self.created_day,
+            "expedited": self.expedited,
         }
 
     @classmethod
@@ -56,4 +59,5 @@ class PendingOrder:
             lines=[OrderLine.from_dict(l) for l in d["lines"]],
             total=d["total"], status=d.get("status", STATUS_AWAITING),
             arrival_day=d.get("arrival_day"), created_day=d.get("created_day", 0),
+            expedited=d.get("expedited", False),
         )

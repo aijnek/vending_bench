@@ -11,7 +11,10 @@ import json
 from pathlib import Path
 
 from ..config import EnvConfig
+from ..env import events as events_mod
 from ..env.world import WorldState
+from ..env.suppliers.llm_based import LLMNegotiationEngine
+from ..env.suppliers.rule_based import RuleBasedNegotiationEngine
 from ..scoring import RunMetrics, score_breakdown
 from ..tools.api import ToolError, execute
 from .llm import ClaudeCLI, LLMError
@@ -120,6 +123,8 @@ def main() -> None:
     parser.add_argument("--context-tokens", type=int, default=8000, help="履歴コンテキストの概算トークン上限")
     parser.add_argument("--timeout", type=int, default=180, help="claude 1呼び出しのタイムアウト秒")
     parser.add_argument("--quiet", action="store_true")
+    parser.add_argument("--rule-based-suppliers", action="store_true",
+                        help="サプライヤー返信にルールベースエンジンを使う（既定は LLM エンジン）")
     args = parser.parse_args()
 
     args.state.parent.mkdir(parents=True, exist_ok=True)
@@ -129,11 +134,18 @@ def main() -> None:
     else:
         world = WorldState.new(EnvConfig(seed=args.seed))
 
+    if args.rule_based_suppliers:
+        events_mod.set_engine(RuleBasedNegotiationEngine())
+        supplier_mode = "rule-based"
+    else:
+        events_mod.set_engine(LLMNegotiationEngine(cli=ClaudeCLI(model="haiku", timeout_s=60)))
+        supplier_mode = "LLM (haiku)"
+
     max_steps = args.max_steps if args.max_steps is not None else args.days * 60
     llm = ClaudeCLI(model=args.model, timeout_s=args.timeout)
     memory = ConversationMemory(context_tokens=args.context_tokens)
 
-    print(f"=== エージェント運転開始: {args.days}日 / 最大{max_steps}ステップ / model={args.model} ===")
+    print(f"=== エージェント運転開始: {args.days}日 / 最大{max_steps}ステップ / model={args.model} / suppliers={supplier_mode} ===")
     summary = run_agent(world, llm, days=args.days, max_steps=max_steps,
                         memory=memory, state_path=args.state, verbose=not args.quiet)
     print("\n=== 結果 ===")
