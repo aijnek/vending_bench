@@ -1,0 +1,16 @@
+{
+  "_comment": "リポジトリ内でプレイヤーを動かす際に、ルールのソース閲覧を抑止するための任意の設定例。 開発作業も制限されるため、常用ではなく『リポジトリ内で skill を実行して採点したいとき』だけ .claude/settings.local.json 等にマージして使う。最も堅牢なのはリポジトリ外の中立 cwd で --allowedTools mcp__vending__* に絞って起動する方法（この設定は不要）。",
+  "permissions": {
+    "deny": [
+      "Read(./src/vending_bench/env/**)",
+      "Edit(./src/vending_bench/env/**)",
+      "Read(./docs/**)"
+    ]
+  },
+  "sandbox": {
+    "enabled": true,
+    "filesystem": {
+      "denyRead": ["./src/vending_bench/env"]
+    }
+  }
+}

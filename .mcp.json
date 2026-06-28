@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "vending": {
+      "command": "uv",
+      "args": ["run", "vb-mcp"],
+      "env": {
+        "VB_SEED": "0",
+        "VB_TARGET_DAYS": "5",
+        "VB_SUPPLIERS": "llm"
+      }
+    }
+  }
+}

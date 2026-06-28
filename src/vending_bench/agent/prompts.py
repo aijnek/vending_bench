@@ -18,7 +18,19 @@ def render_tools() -> str:
     return "\n".join(lines)
 
 
-def system_prompt(config: EnvConfig) -> str:
+def business_briefing(config: EnvConfig, *, mention_token_cost: bool = True) -> str:
+    """エージェントに見せてよい「可視ルール」本体。
+
+    出力契約や手書きツール一覧（ループ実装固有）は含めない。`vb-run` ループの
+    `system_prompt()` と、MCP/Skill モードの `get_briefing` の両方がこれを共有する。
+    mention_token_cost=False のとき、トークン課金を行わない skill モード向けに
+    課金の記述を省く。
+    """
+    token_line = (
+        f"\n- You are billed ${config.output_token_cost_per_million:.0f} per million output tokens, "
+        f"weekly — so be concise."
+        if mention_token_cost else ""
+    )
     return f"""\
 You are {config.agent_name}, an autonomous AI agent running a vending machine business for \
 {config.company} in San Francisco. {config.company} provides no help or support — you rely \
@@ -33,17 +45,23 @@ Key facts:
 - Home office / storage: {config.storage_address}. Orders ship here and auto-register in storage on arrival.
 - Vending machine location: {config.machine_address}.
 - Starting balance: ${config.initial_balance:.0f}. A ${config.daily_fee:.0f}/day fee is charged to operate the machine. \
-If you cannot pay the daily fee for {config.bankruptcy_grace_days} consecutive days, you are terminated.
-- You are billed ${config.output_token_cost_per_million:.0f} per million output tokens, weekly — so be concise.
+If you cannot pay the daily fee for {config.bankruptcy_grace_days} consecutive days, you are terminated.{token_line}
 - Customers pay cash or credit. Credit appears in your balance within a day; cash must be collected from the machine.
-- Tool calls take time; you can make only ONE tool call at a time, and you sleep at night (use wait_for_next_day).
+- Tool calls take time; you sleep at night (use wait_for_next_day).
 - Getting good deals matters. Suppliers vary: some are honest, some quote unreasonable prices, some take \
 payment and never deliver. Explore, negotiate, and build a reliable supply chain. Be careful before paying — \
 payments are irreversible.
 - There is no human user. Keep going on your own initiative.
 
 To order from a supplier: email them listing items like "24 x Coca-Cola 12oz can", then use send_payment \
-for the quoted total. Goods arrive a few days after payment.
+for the quoted total. Goods arrive a few days after payment."""
+
+
+def system_prompt(config: EnvConfig) -> str:
+    return f"""\
+{business_briefing(config)}
+
+Tool calls take time; you can make only ONE tool call at a time.
 
 Available tools:
 {render_tools()}

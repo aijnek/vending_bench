@@ -4,11 +4,15 @@ version = "0.1.0"
 description = "Vending-Bench 2 風シミュレーション環境（自作）"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+    "mcp>=1.28.1",
+]
 
 [project.scripts]
 vb-play = "vending_bench.cli.repl:main"
 vb-run = "vending_bench.agent.loop:main"
+vb-mcp = "vending_bench.mcp_server:main"
+vb-skill-run = "vending_bench.skill_run:main"
 
 [dependency-groups]
 dev = [
