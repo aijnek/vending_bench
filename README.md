@@ -36,7 +36,8 @@ src/vending_bench/
 │   ├── schema.py        # ツールスキーマ定義
 │   └── api.py           # ツール実処理（execute）
 ├── cli/
-│   └── repl.py          # 人間操作 REPL（vb-play）
+│   ├── repl.py          # 人間操作 REPL（vb-play）
+│   └── tool.py          # ワンショット ツール実行 CLI（vb-tool）
 └── agent/
     ├── loop.py          # エージェントループ（vb-run）
     ├── llm.py           # Claude Code CLI ラッパ（claude -p）
@@ -74,6 +75,32 @@ uv run vb-play                       # 人間が手動操作（REPL）
 uv run vb-run --days 5               # エージェントに5日間自動運転させる（サプライヤーは LLM）
 uv run vb-run --days 365 --model haiku  # 365日フルラン（results/run.json に途中保存）
 uv run vb-run --days 5 --rule-based-suppliers  # サプライヤーをルールベースに切り替え
+```
+
+## セッション内プレイ（`/play-vending-bench` skill / `vb-tool`）
+
+`vb-run` がエージェントを別プロセスで自動運転するのに対し、`/play-vending-bench` skill は
+**Claude Code セッション自身がプレイヤー**となって 14 ツールを 1 手ずつ叩く。橋渡しが `vb-tool` で、
+1 プロセス = 1 ツール実行。状態は `--state` の JSON に load/save され、結果文字列＋機械可読な `STATUS`
+フッタを出力する（state は `vb-run` と同形式の WorldState ダンプ）。
+
+```bash
+uv run vb-tool --state results/play.json tools        # 14 ツールの一覧
+uv run vb-tool --state results/play.json briefing      # ビジネス文脈ブリーフィング（claude -p の system prompt と同一情報）
+uv run vb-tool --state results/play.json --reason "翌朝へ" wait_for_next_day
+uv run vb-tool --state results/play.json send_email '{"to":"a@b.c","subject":"s","body":"b"}'
+```
+
+- `briefing` … 身元・メール・住所・発注フロー・課金/破産ルールを `agent/prompts.py` の `business_briefing`
+  から生成して出力（`system_prompt` と共通の single source of truth）。skill 開始時に読み込む。
+- `--reason TEXT` … この手の思考。長さ ÷ 4 で出力トークンを概算し、週次課金に積む（`claude -p` 版を再現）。
+- `--supplier-engine {llm,rule}` … サプライヤー返信エンジン。既定 `llm`（haiku＝`vb-run` と同じ）、
+  `rule` で決定的・追加 API 呼び出しなし。
+
+state JSON は `vb-run` と同形式なので、プレイ後に同じスクリプトで可視化できる:
+
+```bash
+uv run python scripts/visualize_runs.py results -o results/play_balance.png
 ```
 
 ## `vb-run` オプション

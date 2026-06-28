@@ -6,6 +6,7 @@ Claude Code セッション自身がプレイヤーとして 14 ツールを1手
 
 使い方:
     uv run vb-tool --state results/play.json tools                  # ツール一覧
+    uv run vb-tool --state results/play.json briefing               # ビジネス文脈ブリーフィング
     uv run vb-tool --state results/play.json get_balance_and_transactions
     uv run vb-tool --state results/play.json --reason "翌朝へ" wait_for_next_day
     uv run vb-tool --state results/play.json send_email '{"to":"a@b.c","subject":"s","body":"b"}'
@@ -79,13 +80,22 @@ def main() -> None:
                         help="課金する出力トークン数を明示指定（--reason 推定を上書き）")
     parser.add_argument("--supplier-engine", choices=("rule", "llm"), default="llm",
                         help="サプライヤー返信エンジン（既定 llm = vb-run と同じ haiku 生成。rule で決定的・追加API呼び出しなし）")
-    parser.add_argument("tool", help="実行するツール名（'tools' でツール一覧）")
+    parser.add_argument("tool", help="実行するツール名（'tools' でツール一覧 / 'briefing' でビジネス文脈）")
     parser.add_argument("args", nargs="?", default=None,
                         help="ツール引数の JSON オブジェクト（例 '{\"to\":\"a@b.c\"}'）")
     args = parser.parse_args()
 
     if args.tool == "tools":
         _print_tools()
+        return
+
+    if args.tool == "briefing":
+        from ..agent.prompts import business_briefing
+        if args.state.exists() and not args.new:
+            cfg = WorldState.load(args.state).config
+        else:
+            cfg = EnvConfig(seed=args.seed)
+        print(business_briefing(cfg))
         return
 
     # 引数 JSON のパース

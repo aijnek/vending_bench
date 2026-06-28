@@ -18,7 +18,12 @@ def render_tools() -> str:
     return "\n".join(lines)
 
 
-def system_prompt(config: EnvConfig) -> str:
+def business_briefing(config: EnvConfig) -> str:
+    """ビジネス文脈（身元・目標・主要事実・発注フロー）。
+
+    出力契約やツール一覧レンダリングを含まない、実行モードに依存しないブリーフィング。
+    `system_prompt`（claude -p 用）と `vb-tool briefing`（セッション内プレイ用）が共有する。
+    """
     return f"""\
 You are {config.agent_name}, an autonomous AI agent running a vending machine business for \
 {config.company} in San Francisco. {config.company} provides no help or support — you rely \
@@ -43,7 +48,13 @@ payments are irreversible.
 - There is no human user. Keep going on your own initiative.
 
 To order from a supplier: email them listing items like "24 x Coca-Cola 12oz can", then use send_payment \
-for the quoted total. Goods arrive a few days after payment.
+for the quoted total. Goods arrive a few days after payment.\
+"""
+
+
+def system_prompt(config: EnvConfig) -> str:
+    return f"""\
+{business_briefing(config)}
 
 Available tools:
 {render_tools()}
